@@ -69,3 +69,27 @@ def postprocess(self, net_out, im, save = True):
 		return
 
 	cv2.imwrite(img_name, imgcv)
+
+
+def drawdict(self, im, box):
+	# meta
+	meta = self.meta
+	colors = meta['colors']
+	labels = meta['labels']
+	if type(im) is not np.ndarray:
+		imgcv = cv2.imread(im)
+	else: imgcv = im
+	h, w, _ = imgcv.shape
+	thick = int((h + w) // 300)
+	left = box['topleft']['x']
+	top = box['topleft']['y']
+	right = box['bottomright']['x']
+	bot = box['bottomright']['y']
+	mess = box['label']
+	colorindex = labels.index(mess)
+	cv2.rectangle(im,
+		(left, top), (right, bot),
+		colors[colorindex], thick)
+	cv2.putText(im, mess, (left, top - 12),
+		0, 1e-3 * h, colors[colorindex],thick//3)
+	return im

@@ -6,6 +6,7 @@ from .ops import op_create, identity
 from .ops import HEADER, LINE
 from .framework import create_framework
 from ..dark.darknet import Darknet
+from .yolov2 import predict
 import json
 import os
 
@@ -27,6 +28,7 @@ class TFNet(object):
 	say = help.say
 	train = flow.train
 	camera = help.camera
+	drawdict = predict.drawdict
 	predict = flow.predict
 	return_predict = flow.return_predict
 	to_darknet = help.to_darknet
